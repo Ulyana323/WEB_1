@@ -1,0 +1,125 @@
+﻿header:hover {
+    cursor: auto;
+    height:200px;
+}
+
+#minus{
+    background-color:greenyellow;
+    height:40px;
+    width:40px;
+    border: solid green;
+    border-radius:100%;
+ 
+    position:relative;
+    left:150px;
+}
+
+#plus {
+    background-color: greenyellow;
+    height: 40px;
+    width: 40px;
+    border: solid green;
+    border-radius: 100%;
+    position: relative;
+    left: 150px;
+}
+
+.counter {
+    position: relative;
+    left: 135px;
+    bottom: -30px;
+    background-color: greenyellow;
+    border: solid green;
+    height: 80px;
+    width: 80px;
+    border-radius: 80%;
+    vertical-align: middle;
+    text-align: center;
+    padding:20px;
+}
+
+
+.ar{
+    background-color: dimgrey;
+    text-align: left;
+    margin: 0;
+    height: 200px;
+}
+.arc:hover {  
+    cursor: auto;
+    color:aliceblue;
+}
+#homework_1 {
+    background-color: greenyellow;
+    border-color:green;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    position: relative;
+    top: -100px;
+    left: 100px;
+    border-radius: 50%;
+    opacity: 0.9;
+}
+#homework_2 {
+    background-color: greenyellow;
+    border-color: green;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    position: relative;
+    border-radius: 50%;
+    top: -100px;
+    left: 200px;
+    opacity: 0.9;
+}
+#homework_3 {
+    opacity: 0.9;
+    background-color: greenyellow;
+    border-color: green;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    position: relative;
+    top: -100px;
+    left: 300px;
+}
+*{
+    margin:0;
+    padding:0;
+}
+body
+{
+    background-color:lightgreen;
+}
+#hw_1 {
+    background-color: greenyellow;
+    float: unset;
+    position: relative;
+    right: -500px;
+    height: 50px;
+    bottom: -100px;
+    line-height: 100px;
+    width: 400px;
+}
+#hw_2 {
+    background-color: greenyellow;
+    float: unset;
+    position: relative;
+    right: -500px;
+    height: 50px;
+    bottom: -150px;
+    line-height: 100px;
+    width: 400px;
+}
+#hw_3 {
+    background-color: greenyellow;
+    float: unset;
+    position: relative;
+    right: -500px;
+    height: 50px;
+    bottom: -200px;
+    line-height: 100px;
+    width: 400px;
+}

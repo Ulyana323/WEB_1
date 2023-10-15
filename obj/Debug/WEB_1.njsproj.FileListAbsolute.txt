@@ -1,0 +1,3 @@
+D:\Ulyana\STUDY_PROG\WEB_1\obj\Debug\WEB_1.njsproj.AssemblyReference.cache
+D:\Ulyana\STUDY_PROG\WEB_1\obj\Debug\WEB_1.njsproj.CoreCompileInputs.cache
+D:\Ulyana\STUDY_PROG\WEB_1\bin\Microsoft.NodejsTools.WebRole.dll

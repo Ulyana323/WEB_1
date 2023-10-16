@@ -1,4 +1,3 @@
-
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
@@ -40,5 +39,3 @@ function mclick() {
 function cnts() {
     document.write(cnt);
 }
-
-

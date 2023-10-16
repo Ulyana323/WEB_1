@@ -1,6 +1,22 @@
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+}
+
 let counter = 0;
 console.log('Hello world');
-document.getElementById('hw_1').addEventListener('dblclick', () => { alert('нажатие'); });
+document.getElementById('all').addEventListener('click', function(){ alert('РЅР°Р¶Р°С‚РёРµ'); });
 const cnt = document.getElementById('counter');
 const plus = document.getElementById('plus');
 const minus = document.getElementById('minus');
@@ -24,3 +40,5 @@ function mclick() {
 function cnts() {
     document.write(cnt);
 }
+
+

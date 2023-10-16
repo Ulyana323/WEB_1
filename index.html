@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="ru">
 <head>
-
+   
     <link rel="stylesheet" href="StyleSheet.css">
     <meta charset="utf-8" />
     <title></title>
-   
+
 
     <div class="ar">
         <a class="ar" href="https://www.voenmeh.ru/" target="_blank">
@@ -21,41 +21,29 @@
 
 </head>
 <body>
-    <form>
-        <select id="hw_1" >
-            <option ><li >HW_1</li></option>
-            <option>
-                <li class="success"><div class="html">HTML</div>Добавить внутрь всех h2 следующий код: &lt;div class="arrow"&gt;&lt;/div&gt;</li>
-            </option>
-            <option> <div class="css">CSS</div>Задать цвет хедера</li></option>
-            <option>
-                <div class="css">CSS</div>Задать цвет рабочей области</li>
-            </option>
-            <option>
-                <div class="css">CSS</div></li>
-            </option>
-            <option>
-                <div class="css">CSS</div>Создать класс success</li>
-            </option>
-            <option> <li class="success"><div class="html">HTML</div>Добавить логотип</li></option>
-        </select>
-    </form>
-    <form>
-        <select id="hw_2">
-            <option>HW_2</option>
-        </select>
-    </form>
-    <form>
-        <select id="hw_3">
-            <option>HW_3</option>
-        </select>
-    </form>
+
+    <button type="button" class="collapsible" id="all">
+        HW_1
+    </button>
+
+    <div class="content">
+        <p><div>HTML</div>Добавить внутрь всех h2 следующий код: &lt;div class="arrow"&gt;&lt;/div&gt;</p>
+        <p><div>CSS</div>Задать цвет хедера</p>
+        <p><div>CSS</div>Задать цвет рабочей области</p>
+        <p><div>CSS</div></p>
+        <p><div>CSS</div>Создать класс success</p>
+        <p><div>HTML</div>Добавить логотип</p>
+
+    </div>
     <div class="c">
         <button id="plus">+</button>
         <button id="minus" ">-</button>
         <div> <span class="counter">Счетчик :<span id="counter"> 0</span> </span></div>
 
     </div>
+
+
+
     <script src="app.js"></script>
 </body>
 </html>

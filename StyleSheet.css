@@ -9,10 +9,17 @@ header{
 
 
 #minus {
+<<<<<<< Updated upstream
     background-color: greenyellow;
     height: 40px;
     width: 40px;
     border: solid green;
+=======
+    background-color: antiquewhite;
+    height: 40px;
+    width: 40px;
+    border: solid black;
+>>>>>>> Stashed changes
     border-radius: 100%;
     position: relative;
     left: 63%;
@@ -20,10 +27,10 @@ header{
 }
 
 #plus {
-    background-color: greenyellow;
+    background-color: antiquewhite;
     height: 40px;
     width: 40px;
-    border: solid green;
+    border: solid black;
     border-radius: 100%;
     position: relative;
     left: 40%;
@@ -34,14 +41,19 @@ header{
     position: relative;
     left: 50%;
     bottom: -200px;
+<<<<<<< Updated upstream
     background-color: greenyellow;
     border: solid green;
+=======
+    background-color: antiquewhite;
+    border: solid black;
+>>>>>>> Stashed changes
     height: 80px;
     width: 80px;
     border-radius: 80%;
     vertical-align: middle;
     text-align: center;
-    padding:20px;
+    padding: 20px;
 }
 
 
@@ -56,40 +68,54 @@ header{
     color:aliceblue;
 }
 #homework_1 {
-    background-color: greenyellow;
-    border-color:green;
+    background-color: antiquewhite;
+    border-color: black;
     text-align: center;
     font-size: 20px;
     padding: 20px;
     position: relative;
     top: -100px;
+<<<<<<< Updated upstream
     left: 500px;
+=======
+    left: 200px;
+>>>>>>> Stashed changes
     border-radius: 50%;
     opacity: 0.9;
 }
 #homework_2 {
-    background-color: greenyellow;
-    border-color: green;
+    background-color: antiquewhite;
+    border-color: black;
     text-align: center;
     font-size: 20px;
     padding: 20px;
     position: relative;
     border-radius: 50%;
+<<<<<<< Updated upstream
     top: -100px;
     left: 600px;
+=======
+    top: -166px;
+    left: 850px;
+>>>>>>> Stashed changes
     opacity: 0.9;
 }
 #homework_3 {
     opacity: 0.9;
-    background-color: greenyellow;
-    border-color: green;
+    background-color: antiquewhite;
+    border-color: black;
     border-radius: 50%;
     text-align: center;
     font-size: 20px;
     padding: 20px;
     position: relative;
+<<<<<<< Updated upstream
     top: -100px;
     left: 700px;
+=======
+    top: -230px;
+    left: 1100px;
+>>>>>>> Stashed changes
 }
 *{
     margin:0;
@@ -140,3 +166,7 @@ body
     line-height: 100px;
     width: 400px;
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes

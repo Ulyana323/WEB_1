@@ -1,0 +1,15 @@
+﻿body
+{
+
+    justify-content:flex-end;
+    background-color:grey;
+}
+
+.cont
+{
+    background-color:antiquewhite;
+    position:fixed;
+    left:40%;
+    padding:50px;
+    width:200px;
+}

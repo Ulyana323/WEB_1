@@ -1,31 +1,37 @@
-let name = document.querySelector("#name");
 let login = document.querySelector("#login");
 let pass = document.querySelector("#password");
 let submit = document.querySelector("#submit");
+let voity = document.querySelector("#voity");
 
-let users = {};
 
-function User(name, login, password) {
-    this.name = name;
-    this.login = login;
-    this.password = password;
+submit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const loginUser = String(login.value);
+    const passUser = String(pass.value);
+  
+    if (localStorage.getItem(loginUser)) {
+        alert("вы уже зарегестрированы!");
+    }
+    if (!localStorage.getItem(loginUser)) {
+        localStorage.setItem(loginUser, passUser);
+        window.location.href = "Page1.html";        
+    }
+})
 
-}
+voity.addEventListener('click', (e) => {
+    e.preventDefault();
+ 
+    const loginUser = String(login.value);
+    const passUser = String(pass.value);
 
-function createID(users) {
-    return Object.keys(users).length;
-}
+    if (!localStorage.getItem(loginUser))
+    {
+        alert("вы не зарегестрированы!");
 
-submit.addEventListener('click', () => {
-    const nameUser = name.value;
-    const loginUser = login.value;
-    const passUser = pass.value;
-
-    const user = new User(nameUser, loginUser, passUser);
-
-    const userID = 'User' + createID(users);
-    users[userID] = user;
-
-    console.log(users);
-    alert('�� ��������������!');
+    }
+    if (localStorage.getItem(loginUser))
+    {
+        window.location.href = "Page2.html";
+    }
+  
 })

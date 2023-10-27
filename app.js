@@ -15,11 +15,7 @@ for (i = 0; i < coll.length; i++) {
 
 let counter = 0;
 console.log('Hello world');
-<<<<<<< Updated upstream
-document.getElementById('all').addEventListener('click', function(){ alert('Ð½Ð°Ð¶Ð°Ñ‚Ð¸Ðµ'); });
-=======
 document.getElementById('all').addEventListener('click', function(){ alert('íàæàòèå'); });
->>>>>>> Stashed changes
 const cnt = document.getElementById('counter');
 const plus = document.getElementById('plus');
 const minus = document.getElementById('minus');

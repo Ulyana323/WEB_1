@@ -8,7 +8,12 @@
 </head>
 <body>
     <form>
-    <div class="message">ВЫ ВОШЛИ В АККАУНТ!</div>
-      </form>
+        <div class="message">ВЫ ВОШЛИ В АККАУНТ!</div>
+    </form>
+    <script>
+        if (localStorage.getItem('switcher')=='false') {
+            window.location.href = "signPage.html";
+        } else { localStorage.setItem('switcher', 'false'); }
+    </script>
 </body>
 </html>

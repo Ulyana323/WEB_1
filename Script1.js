@@ -1,3 +1,54 @@
+const url = "https://jsonplaceholder.typicode.com/posts";
+
+async function fetchData() {
+    const response =  fetch(url);
+    const data =  response.json();
+    
+        console.log(data);
+    
+}
+/*
+var options =
+{
+    root: document.querySelector("html"),
+    rootMargin: 0px, 0px, 75px, 0px,
+    threshold: 1.0;
+
+};
+
+var callback = function (entries, observer) {
+
+};
+
+var observer = new IntersectionObserver(callback, options);
+
+
+var target = document.querySelector("#post");
+observer.observe(target);
+
+function addPost() {
+    const newEl = document.createElement("div");
+    const newContent = document.createTextNode("Hi there and greetings!");
+    newEl.appendChild(newContent);
+    const curdiv = document.getElementById("#post");
+    document.body.insertBefore(newEl, curdiv);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const delay = ms => {
     return new Promise(r => setTimeout(() => r(), ms))
 }
@@ -19,8 +70,7 @@ dislike.addEventListener('click', () => {
 
 
 let i = 0;
-let vkl = true;
-let nowscr = 0;
+
 let porog = 0;
 const url = "https://jsonplaceholder.typicode.com/posts";
 // высота документа и высота экрана:
@@ -146,12 +196,7 @@ function composePost(postData) {
 
 
 
-/*fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.json())
-    .then(data => {
-        console.log(data);
-    document.getElementById('text').textContent = data.title;
-    });*/
-
+/*
 
 
 async function fetchData(i,Post) {
@@ -195,13 +240,12 @@ async function fetchData(i,Post) {
         //return data;
         //console.log(data);
         //return ppost;
-    }
+   /* }
      catch (e) {
          console.error(e);
      }
     finally {
         console.log('finally');
        // checkPosition();
-    }
-}
-window.addEventListener('scroll', (event) => checkPosition());
+    }*/
+//window.addEventListener('scroll', (event) => checkPosition());

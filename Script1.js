@@ -26,7 +26,7 @@ const url = "https://jsonplaceholder.typicode.com/posts";
 // высота документа и высота экрана:
 const height = document.body.offsetHeight / 3
 const screenHeight = window.innerHeight
-porog = height - screenHeight / 4 //порог = четверть экрана 
+porog = height - screenHeight / 3 //порог = четверть экрана 
 
 async function checkPosition() {
     console.log("i =" + i.toString());

@@ -26,7 +26,7 @@ const url = "https://jsonplaceholder.typicode.com/posts";
 // высота документа и высота экрана:
 const height = document.body.offsetHeight / 3
 const screenHeight = window.innerHeight
-porog = height - screenHeight / 3 //порог = четверть экрана 
+porog = height - screenHeight / 2 //порог = четверть экрана 
 
 async function checkPosition() {
     console.log("i =" + i.toString());
@@ -157,7 +157,7 @@ function composePost(postData) {
 async function fetchData(i,Post) {
     try {
 
-             await delay(2000);
+            // await delay(2000);
                 const response = await fetch(url);
                 const data = await response.json();
                 const ppost = FPost.cloneNode(true);
@@ -165,7 +165,7 @@ async function fetchData(i,Post) {
                 ppost.querySelector('h1').innerText = data[i].title;
                 ppost.querySelector('form').innerText = data[i].body;
         console.log(ppost);
-        await delay(3000);
+       // await delay(3000);
 
                 
         

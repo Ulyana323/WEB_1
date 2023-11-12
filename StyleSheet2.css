@@ -5,45 +5,24 @@
     background-color: red;
     display: flex;
     justify-content: center;
-    height: 100%;
+    height:800px;
     width:100%;
 }
 .content {
     display: flex;
     justify-content: center;
-    height: 100%;
-    width: 50%;
+    height: 750px;
+    width: 700px;
     overflow-y: scroll;
     background-color: darkblue;
     margin: -10px,0px,0px,0px;
 }
 
-.cont1 {
-    border-color: black;
-    border-width: 5px;
-    background-color: darkmagenta;
-   
-}
-
-.cont {
-    height:600px;
-    width: 50px;
-    background-color:aqua;
-    
-
-}
-.con {
-
-    height:50px;
-    width: 50px;
-    margin:20px;
-}
 .post
 {
-    border-color:black;
-    border-width:5px;
-    background-color:darkmagenta;
-    height:20%;
-    width:300%;
+    background-color:lightyellow;
+    height:300px;
+    width:300px;
     margin:10px,0px,10px,0px;
+    text-align:center;
 }

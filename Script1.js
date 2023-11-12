@@ -1,251 +1,203 @@
-const url = "https://jsonplaceholder.typicode.com/posts";
+window.addEventListener('scroll', function () {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      //  console.log("scr");
+    } else {
+    }
+});
+function scrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
 
-async function fetchData() {
-    const response =  fetch(url);
-    const data =  response.json();
-    
-        console.log(data);
+/*let i = 1;
+function addBlockPost() {
+    i++;
+    console.log(String(i));
+    var ul = document.querySelector(".conten")
+    var li = document.createElement("li");
+    for (let i = 0; i < 4; i++) {
+       
+        var divelm = document.createElement("div");
+        var h1elm = document.createElement("h1");
+        var h2elm = document.createElement("h2");
+        var pelm = document.createElement("p");
+       
+        divelm.appendChild(h1elm);
+        divelm.appendChild(h2elm);
+        divelm.appendChild(pelm);
+     
+        divelm.className = 'post';
+       
+        li.appendChild(divelm);
+        
+        li.className = 'cont';
+        ul.appendChild(li);
+    }
+    var divelm = document.createElement("div");
+    var h1elm = document.createElement("h1");
+    var h2elm = document.createElement("h2");
+    var pelm = document.createElement("p");
+   
+    //pelm2.className = 'cont1';
+   
+    if (i == 2) {
+        divelm.className = 'post cont2';
+        
+    }
+    if (i == 3) {
+        divelm.className = 'post cont3';
+        
+    }
+    if (i == 4) {
+       
+        divelm.className = 'post cont4';
+    }
+    li.className = 'cont';
+    divelm.appendChild(h1elm);
+    divelm.appendChild(h2elm);
+    divelm.appendChild(pelm);
+   
+
+  
+    li.appendChild(divelm);
+    ul.appendChild(li);
     
 }
-/*
-var options =
-{
-    root: document.querySelector("html"),
-    rootMargin: 0px, 0px, 75px, 0px,
-    threshold: 1.0;
 
-};
+const images = document.querySelectorAll('.cont1');
+const target = document.querySelector('.cont1');
+const target2 = document.querySelector('.cont2');
+const target3 = document.querySelector('.cont3');
 
-var callback = function (entries, observer) {
+function observ(i) {
+    let str = "target" + String(i);
+    console.log(str);
+    observer.observe();
+   
+}
 
-};
+const callback = (entries, observer) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+           
+            console.log("GOOT IT");
+            addBlockPost();
+            observer.unobserve(target)
+            observ(i);        
+        }
+    })
+}
+const options = {
+    root: document.querySelector('.content'),
+    rootMargin: '0px',
+    threshold: 0.2,
+}
+const observer = new IntersectionObserver(callback, options);
 
-var observer = new IntersectionObserver(callback, options);
 
 
-var target = document.querySelector("#post");
 observer.observe(target);
 
-function addPost() {
-    const newEl = document.createElement("div");
-    const newContent = document.createTextNode("Hi there and greetings!");
-    newEl.appendChild(newContent);
-    const curdiv = document.getElementById("#post");
-    document.body.insertBefore(newEl, curdiv);
+images.forEach((image) => observer.observe(image));
+*/
+const options = {
+    root: document.querySelector('.content'),
+    rootMargin: '0px',
+    threshold: 0.9,
 }
 
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Загрузить новые данные
+            fetchData();
+            observer.unobserve(target);
+        }
+    });
+}, options);
 
+const target = document.querySelector('.cont1');
 
+observer.observe(target);
 
+let page = 1;
 
-
-
-
-
-
-
-
-
-
-
-
-const delay = ms => {
-    return new Promise(r => setTimeout(() => r(), ms))
+function fetchData() {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+            .then(data => {
+                // Обработать полученные данные и добавить их на страницу
+                for (let i = 0; i < 5; i++) {
+                  
+                    if (i == 4) { appendDataToPageL(data[i]); break; }
+                    appendDataToPage(data[i]);
+                }
+                
+            });
 }
+function appendDataToPage(data) {
+    if (page > 4) { return; }
+    console.log("wOw");
+    const container = document.querySelector('.cont');
+    //var li = document.createElement("li");
+    var divelm = document.createElement("div");
+    var h1elm = document.createElement("h1");
+    var h2elm = document.createElement("h2");
+    var pelm = document.createElement("p");
 
-//delay(2000).then(() => console.log('2sec'));
+    divelm.appendChild(h1elm);
+    divelm.appendChild(h2elm);
+    divelm.appendChild(pelm);
 
-const Post = document.getElementById('post');
-let FPost = Post;
-const main = document.querySelector('main');
-let post = document.getElementById("text");
-let postitle = document.getElementById("titl");
-const like = document.getElementById("like");
-const dislike = document.getElementById("dislike");
+    divelm.className = 'post';
 
+    pelm.textContent = data.title;
+    divelm.className = 'post ';
 
-dislike.addEventListener('click', () => {
-    console.log("dislike");
-})
+    // li.appendChild(divelm);
 
+    //li.className = 'cont cont2';
+    container.appendChild(divelm);
+  
+}
+function appendDataToPageL(data) {
+    page++;
+    if (page > 4) { return; }
+    console.log("wow");
+    const container = document.querySelector('.cont');
+    //var li = document.createElement("li");
+    var divelm = document.createElement("div");
+    var h1elm = document.createElement("h1");
+    var h2elm = document.createElement("h2");
+    var pelm = document.createElement("p");
 
-let i = 0;
+    divelm.appendChild(h1elm);
+    divelm.appendChild(h2elm);
+    divelm.appendChild(pelm);
 
-let porog = 0;
-const url = "https://jsonplaceholder.typicode.com/posts";
-// высота документа и высота экрана:
-const height = document.body.offsetHeight / 3
-const screenHeight = window.innerHeight
-porog = height - screenHeight / 2 //порог = четверть экрана 
+    divelm.className = 'post';
 
-async function checkPosition() {
-    console.log("i =" + i.toString());
-    
-    console.log(height.toString());
-    console.log(screenHeight.toString());
-    const scrolled = window.scrollY//возвращает число пикселей на которое пролискали документ
-    console.log("scrolly= "+scrolled.toString());
-    console.log("porog="+porog.toString());
-    //Отслеживаем, где находится низ экрана относительно страницы:
-    const position = scrolled + screenHeight
-    console.log("pos="+position.toString());
-    if (i == 100) {
-        console.log("return");
-        return;
-    }else if (position >= porog)  {
-        //Если мы пересекли полосу-порог, вызываем нужное действие.
-        nowscr = scrolled;
-        porog = position;
-        i++;
-        console.log("wow");
-      //  await delay(2000);
-        await fetchData(i);
-         
+    pelm.textContent = data.title;
+    divelm.className = 'post cont2';
 
+   // li.appendChild(divelm);
 
+    //li.className = 'cont cont2';
+    container.appendChild(divelm);
+    if (page == 2) {
+        divelm.className = 'post cont2';
+        const target2 = document.querySelector('.cont2');
+        observer.observe(target2);
+     
+    }
+    if (page == 3) {
+        divelm.className = 'post cont3';
+        const target3 = document.querySelector('.cont3');
+        observer.observe(target3);
+    }
+    if (page == 4) {
+        divelm.className = 'post cont4';
+       // const target4 = document.querySelector('.cont4');
+        //observer.observe(target4);
     }
 }
-//fetchData();
-//checkPosition();
-
-/*window.addEventListener('scroll', function () {
-    document.getElementById('main').innerHTML = pageYOffset + 'px';
-    console.log("fu");
-});*/
-/*
-// Какая страница следующая:
-let nextPage = 2
-
-// Если отправили запрос, но ещё не получили ответ,
-// не нужно отправлять ещё один запрос:
-let isLoading = false
-
-// Если контент закончился, вообще больше не нужно
-// отправлять никаких запросов:
-let shouldLoad = true
-
-async function fetchPosts() {
-    // Если мы уже отправили запрос, или новый контент закончился,
-    // то новый запрос отправлять не надо:
-    if (isLoading || !shouldLoad) return
-
-    // Предотвращаем новые запросы, пока не закончится этот:
-    isLoading = true
-
-    const { posts, next } = await server.posts(nextPage)
-    posts.forEach(appendPost)
-
-    // В следующий раз запрашиваем страницу с номером next:
-    nextPage = next
-
-    // Если мы увидели, что контент закончился,
-    // отмечаем, что больше запрашивать ничего не надо:
-    if (!next) shouldLoad = false
-
-    // Когда запрос выполнен и обработан,
-    // снимаем флаг isLoading:
-    isLoading = false
-}
-
-function appendPost(postData) {
-    // Если данных нет, ничего не делаем:
-    if (!postData) return
-
-    // Храним ссылку на элемент, внутрь которого
-    // добавим новые элементы-свиты:
-    const main = document.querySelector('main')
-
-    // Используем функцию composePost,
-    // которую напишем чуть позже —
-    // она превращает данные в HTML-элемент:
-    const postNode = composePost(postData)
-
-    // Добавляем созданный элемент в main:
-    main.append(postNode)
-}
-function composePost(postData) {
-    // Если ничего не передано, ничего не возвращаем:
-    if (!postData) return
-
-    // Обращаемся к шаблону, который создали ранее:
-    const template = document.getElementById('post_template')
-
-    // ...и вытаскиваем его содержимое.
-    // В нашем случае содержимым будет «скелет» свита, элемент article.
-    // Указываем, что нам необходимо его склонировать, а не использовать сам элемент,
-    // иначе он изменится сам, и мы не сможем сделать несколько свитов:
-    const post = template.content.cloneNode(true)
-
-    // Из postData получаем всю необходимую информацию:
-    const { title, body, likes, reposts } = postData
-
-    // Добавляем соответствующие тексты и числа в нужные места в «скелете»:
-    post.querySelector('h1').innerText = title
-    post.querySelector('p').innerText = body
-    post.querySelector('button:first-child').innerText += likes
-    post.querySelector('button:last-child').innerText += reposts
-
-    // Возвращаем созданный элемент,
-    // чтобы его можно было добавить на страницу:
-    return post
-}
-*/
-
-
-
-
-
-
-/*
-
-
-async function fetchData(i,Post) {
-    try {
-
-            // await delay(2000);
-                const response = await fetch(url);
-                const data = await response.json();
-                const ppost = FPost.cloneNode(true);
-
-                ppost.querySelector('h1').innerText = data[i].title;
-                ppost.querySelector('form').innerText = data[i].body;
-        console.log(ppost);
-       // await delay(3000);
-
-                
-        
-        FPost.after(ppost);
-        FPost = ppost;
-        // Post.append(ppost); 
-
-                console.log("fetchdata");
-                console.log(i.toString());
-  
-       // })
-
-       // let newpost=document.createElement("")
-       /* for (let i = 0; i < 10; i++) {
-            ppost.querySelector('h1').innerText = data[i].title;
-            ppost.querySelector('form').innerText = data[i].body;
-            console.log(ppost);
-            Post.append(ppost);
-        }*/
-       /* post.textContent = data[0].body;
-        postitle.textContent = data[0].title;*/
-       // ppost.querySelector('h1').innerText = 'hi';
-       // ppost.querySelector('form').innerText = 'fuck';
-        //Post.after(ppost);
-        //post.querySelector('button:first-child').innerText += likes
-        //post.querySelector('button:last-child').innerText += reposts
-        //return data;
-        //console.log(data);
-        //return ppost;
-   /* }
-     catch (e) {
-         console.error(e);
-     }
-    finally {
-        console.log('finally');
-       // checkPosition();
-    }*/
-//window.addEventListener('scroll', (event) => checkPosition());

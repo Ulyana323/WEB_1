@@ -1,28 +1,68 @@
+::-webkit-scrollbar {
+    width: 0;
+}
+@keyframes background {
+    50% {
+        background: darkviolet;
+        box-shadow: 0 -140px 70px -120px mediumorchid inset, 0 -210px 70px -120px teal inset, 0 -280px 70px -120px plum inset;
+    }
+}
+
 .main {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: red;
+   
+    background-image: repeating-radial-gradient( blue, white, blue );
     display: flex;
     justify-content: center;
-    height:800px;
-    width:100%;
+    height: 800px;
+    width: 100%;
 }
 .content {
     display: flex;
     justify-content: center;
-    height: 750px;
+    height: 799px;
     width: 700px;
     overflow-y: scroll;
-    background-color: darkblue;
-    margin: -10px,0px,0px,0px;
+    border-radius:50%;
+    box-shadow: 0 -150px 70px -120px teal inset, 0 -220px 70px -120px yellowgreen inset, 0 -280px 70px -120px gold inset;
+    margin: 40px,0px,0px,0px;
+    scroll-behavior: smooth;
+    animation: background 4s infinite alternate;
+}
+.shrift {
+    
+    font-family: cursive;
+    font-size: 25px;
+}
+.shrift1 {
+    font-family: cursive;
+    font-size: 20px;
+}
+.shrift2 {
+    font-family: cursive;
+    font-size: 20px;
 }
 
-.post
-{
-    background-color:lightyellow;
-    height:300px;
-    width:300px;
-    margin:10px,0px,10px,0px;
-    text-align:center;
+.post {
+ 
+    background-color: lightyellow;
+    border-radius: 50%;
+    height: 320px;
+    width: 400px;
+    margin: 30px,0px,10px,0px;
+    text-align: center;
+}
+.post1 {
+    
+    background-color: lightyellow;
+    border-radius: 50%;
+    height: 150px;
+    width: 400px;
+    margin: 30px,0px,10px,0px;
+    text-align: center;
+}
+.sh {
+    font-size: 35px;
 }

@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mang_style.css">
+    <title>Менеджер заказов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+
+        .order {
+            margin-bottom: 10px;
+        }
+
+        .new-order {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Менеджер заказов</h1>
+        <form action="index.html">
+            <input type="submit" value="На главную" />
+        </form>
+        <div>
+            <input type="text" v-model="searchQuery" placeholder="Поиск заказа">
+            <button @click="searchOrder">Искать</button>
+        </div>
+
+        <div class="new-order">
+            <h2>Добавить новый заказ:</h2>
+            <input type="text" v-model="newOrderId" placeholder="ID заказа">
+            <input type="text" v-model="newOrderStatus" placeholder="Поставщик">
+            <input type="text" v-model="newPriceStatus" placeholder="Стоимость(руб)">
+            <input type="text" v-model="newCommentStatus" placeholder="комментарий">
+
+            <button @click="addNewOrder">Добавить заказ</button>
+        </div>
+        <div v-for="order in filteredOrders" :key="order.id" class="order">
+            <table class="ordelm">
+                <tr class="ordelm">
+                    <td> <p id="ID">ID:{{ order.id }}</p> </td>
+                    <td>
+                        <input type="text" v-model="order.status" disabled>
+                    </td>
+                    <td>
+                        <input type="text" v-model="order.price" disabled>
+                    </td>
+                    <td>
+                        <input type="text" v-model="order.comment" :disabled="order.id === selectedOrderId ? false : true">
+                    </td>
+
+
+                </tr>
+            </table>
+            <span class="but">
+                <button @click="editOrder(order.id)">Редактировать комментарий</button>
+                <button @click="deleteOrder(order.id)">Удалить заказ</button>
+            </span>
+        </div>
+        <div>
+            <h2>История удаленных заказов:</h2>
+            <ul>
+                <li v-for="deletedOrder in deletedOrders" :key="deletedOrder.id">
+                    ID: {{ deletedOrder.id }} Поставщик - {{ deletedOrder.status }} Стоимость - {{ deletedOrder.price }}
+                    <button @click="restoreOrder(deletedOrder.id)">Восстановить заказ</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    orders: JSON.parse(localStorage.getItem('orders')) || [
+                        { id: 1, status: 'Cемен', price: 0, comment: 'nocomment' },
+
+                    ],
+                    deletedOrders: [],
+                    newOrderId: '',
+                    newOrderStatus: '',
+                    searchQuery: '',
+                    newPriceStatus: '',
+                    newCommentStatus: '',
+                    selectedOrderId: null
+                };
+            },
+            computed: {
+                filteredOrders() {
+                    if (this.searchQuery) {
+                        return this.orders.filter(order => order.status.toLowerCase().includes(this.searchQuery.toLowerCase()));
+                    } else {
+                        return this.orders;
+                    }
+                }
+            },
+            watch: {
+                orders: {
+                    handler(newOrders) {
+                        localStorage.setItem('orders', JSON.stringify(newOrders));
+                    },
+                    deep: true
+                }
+            },
+           
+            methods: {
+               
+                viewOrderHistory(id) {
+                    const orderIndex = this.orders.findIndex(order => order.id === id);
+                    if (orderIndex !== -1) {
+                        this.orders[orderIndex].showHistory = true;
+                        this.orders[orderIndex].history.push(`Статус "${this.orders[orderIndex].status}" - ${new Date().toLocaleString()}`);
+                    }
+                },
+                addNewOrder() {
+
+                    if (this.newOrderId && this.newOrderStatus && this.newPriceStatus && this.newCommentStatus) {
+                        this.orders.push({ id: parseInt(this.newOrderId), status: this.newOrderStatus, price: parseFloat(this.newPriceStatus), comment: this.newCommentStatus, history: [] });
+                        this.newOrderId = '';
+                        this.newOrderStatus = '';
+                        this.newPriceStatus = '';
+                        this.newCommentStatus = '';
+
+                    }
+                },
+               
+                searchOrder() {
+                    if (this.searchQuery) {
+                        const order = this.orders.find(order => order.status.toLowerCase() === this.searchQuery.toLowerCase());
+                        if (order) {
+                            this.searchQuery = '';
+                            alert(`Заказ найден: ID - ${order.id}, Статус - ${order.status}`);
+                        } else {
+                            alert('Заказ не найден');
+                        }
+                    }
+                },
+                editOrder(id) {
+                    this.selectedOrderId = id;
+                },
+                 deleteOrder(id) {
+
+                    const deletedOrder = this.orders.find(order => order.id === id);
+                    if (deletedOrder) {
+                        this.deletedOrders.push(deletedOrder);
+                        this.orders = this.orders.filter(order => order.id !== id);
+                    }
+                },
+
+                restoreOrder(id) {
+                    const restoredOrder = this.deletedOrders.find(order => order.id === id);
+                    if (restoredOrder) {
+                        this.orders.push(restoredOrder);
+                        this.deletedOrders = this.deletedOrders.filter(order => order.id !== id);
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

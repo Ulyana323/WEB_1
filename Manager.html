@@ -1,0 +1,135 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Менеджер заказов</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Менеджер заказов</h1>
+        <div>
+            <input type="text" v-model="searchQuery" placeholder="Поиск заказа">
+            <button @click="searchOrder">Искать</button>
+        </div>
+
+        <div class="new-order">
+            <h2>Добавить новый заказ:</h2>
+            <input type="text" v-model="newOrderId" placeholder="ID заказа">
+            <input type="text" v-model="newOrderStatus" placeholder="Статус заказа">
+            <button @click="addNewOrder">Добавить заказ</button>
+        </div>
+        <div v-for="order in filteredOrders" :key="order.id" class="order">
+            <p>Заказ №{{ order.id }} - {{ order.status }}</p>
+            <input type="text" v-model="order.status" :disabled="order.id === selectedOrderId ? false : true">
+            <button @click="editOrder(order.id)">Редактировать заказ</button>
+            <button @click="deleteOrder(order.id)">Удалить заказ</button>
+            <button @click="viewOrderHistory(order.id)">Просмотреть историю заказа</button>
+            <div v-if="order.id === selectedOrderId && order.showHistory">
+                <ul>
+                    <li v-for="history in order.history">{{ history }}</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h2>История удаленных заказов:</h2>
+            <ul>
+                <li v-for="deletedOrder in deletedOrders" :key="deletedOrder.id">
+                    Заказ №{{ deletedOrder.id }} - {{ deletedOrder.status }}
+                    <button @click="restoreOrder(deletedOrder.id)">Восстановить заказ</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    orders: JSON.parse(localStorage.getItem('orders')) || [
+                        { id: 1, status: 'В обработке' },
+                        { id: 2, status: 'Ожидает оплаты' },
+                        { id: 3, status: 'Доставляется' }
+                    ],
+                    deletedOrders: [],
+                    newOrderId: '',
+                    newOrderStatus: '',
+                    searchQuery: '',
+                    selectedOrderId: null
+                };
+            },
+            computed: {
+                filteredOrders() {
+                    if (this.searchQuery) {
+                        return this.orders.filter(order => order.status.toLowerCase().includes(this.searchQuery.toLowerCase()));
+                    } else {
+                        return this.orders;
+                    }
+                }
+            },
+            watch: {
+                orders: {
+                    handler(newOrders) {
+                        localStorage.setItem('orders', JSON.stringify(newOrders));
+                    },
+                    deep: true
+                }
+            },
+            methods: {
+               
+                addNewOrder() {
+                    if (this.newOrderId && this.newOrderStatus) {
+                        this.orders.push({ id: parseInt(this.newOrderId), status: this.newOrderStatus, history: [] });
+                        this.newOrderId = '';
+                        this.newOrderStatus = '';      
+                    }
+                },
+               
+                editOrder(id) {
+                    this.selectedOrderId = id;
+                },
+                viewOrderHistory(id) {
+                    const orderIndex = this.orders.findIndex(order => order.id === id);
+                    if (orderIndex !== -1) {
+                        this.orders[orderIndex].showHistory = true;
+                        this.orders[orderIndex].history.push(`Статус "${this.orders[orderIndex].status}" - ${new Date().toLocaleString()}`);
+                    }
+                },
+                searchOrder() {
+                    if (this.searchQuery) {
+                        const order = this.orders.find(order => order.status.toLowerCase() === this.searchQuery.toLowerCase());
+                        if (order) {
+                            this.searchQuery = '';
+                            alert(`Заказ найден: ID - ${order.id}, Статус - ${order.status}`);
+                        } else {
+                            alert('Заказ не найден');
+                        }
+                    }
+                },
+                deleteOrder(id) {
+                   
+                    const deletedOrder = this.orders.find(order => order.id === id);
+                    if (deletedOrder) {
+                        this.deletedOrders.push(deletedOrder);
+                        this.orders = this.orders.filter(order => order.id !== id);
+                    }
+                },
+
+                restoreOrder(id) {
+                    const restoredOrder = this.deletedOrders.find(order => order.id === id);
+                    if (restoredOrder) {
+                        this.orders.push(restoredOrder);
+                        this.deletedOrders = this.deletedOrders.filter(order => order.id !== id);
+                    }
+                }
+            }
+        });
+       
+    </script>
+</body>
+</html>

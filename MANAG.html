@@ -4,11 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="mang_style.css">
-    <title>Менеджер заказов</title>
+    <h1 class="title-text">Менеджер заказов</h1>
     <style>
+
+
+        @keyframes slidein {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .title-text {
+            animation: slidein 1s ease-in-out;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+        }
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            animation: changeColor 5s infinite;
+            font-family: system-ui;
+
+        }
+
+        @keyframes changeColor {
+            0% {
+                background-color: #0F9EA7;
+            }
+
+            50% {
+                background-color: #28CCD6;
+            }
+
+            100% {
+                background-color: #0F9EA7;
+            }
         }
 
         h1 {
@@ -20,29 +54,84 @@
             padding: 5px;
         }
 
-        button {
-            padding: 5px 10px;
+        .but {
+            padding: 10px 20px;
             margin-right: 10px;
+            background-color: #0F9EA7;
+            border-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
+        .butt:hover {
+            background-color: #38B3F1;
+        }
+        .butt {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #0F9EA7;
+            border-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #0F9EA7;
+            border-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #38B3F1;
+            }
+
 
         .order {
             margin-bottom: 10px;
+            background-color: #66C4F3;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .orders {
+            font-family: "Times New Roman", Times, serif;
         }
 
         .new-order {
             margin-top: 20px;
         }
-    </style>
+        input[type="text"], input[type="password"], button {
+            color: #333333;
+            border-radius: 5px;
+        }
+
+        h2 {
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }</style>
 </head>
 <body>
 
     <div id="app">
-        <h1>Менеджер заказов</h1>
+        
         <form action="index.html">
-            <input type="submit" value="На главную" />
+            <input class="but" type="submit" value="На главную" />
         </form>
         <div>
-            <input type="text" v-model="searchQuery" placeholder="Поиск заказа">
+            <input type="text" v-model="searchQuery" placeholder="Поиск заказа (поставщик)">
             <button @click="searchOrder">Искать</button>
         </div>
 
@@ -66,14 +155,15 @@
                         <input type="text" v-model="order.price" disabled>
                     </td>
                     <td>
-                        <input type="text" v-model="order.comment" :disabled="order.id === selectedOrderId ? false : true">
+                        <input type="text" class="pole" v-model="order.comment" disabled>
                     </td>
 
 
                 </tr>
             </table>
             <span class="but">
-                <button @click="editOrder(order.id)">Редактировать комментарий</button>
+                <button @click="editOrder(order.id),opn(order.num)">Редактировать комментарий</button>
+                <button @click="clos(order.num)">сохранить изменения</button>
                 <button @click="deleteOrder(order.id)">Удалить заказ</button>
             </span>
         </div>
@@ -87,17 +177,18 @@
             </ul>
         </div>
     </div>
-    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script>
-
+        var i = 1;
         new Vue({
+
             el: '#app',
             data() {
                 return {
                     orders: JSON.parse(localStorage.getItem('orders')) || [
-                        { id: 1, status: 'Cемен', price: 0, comment: 'nocomment' },
+                        { id: 1, status: 'Cемен', price: 0, comment: 'nocomment',num:i},
 
                     ],
                     deletedOrders: [],
@@ -126,9 +217,9 @@
                     deep: true
                 }
             },
-           
+
             methods: {
-               
+
                 viewOrderHistory(id) {
                     const orderIndex = this.orders.findIndex(order => order.id === id);
                     if (orderIndex !== -1) {
@@ -136,18 +227,11 @@
                         this.orders[orderIndex].history.push(`Статус "${this.orders[orderIndex].status}" - ${new Date().toLocaleString()}`);
                     }
                 },
-                addNewOrder() {
-
-                    if (this.newOrderId && this.newOrderStatus && this.newPriceStatus && this.newCommentStatus) {
-                        this.orders.push({ id: parseInt(this.newOrderId), status: this.newOrderStatus, price: parseFloat(this.newPriceStatus), comment: this.newCommentStatus, history: [] });
-                        this.newOrderId = '';
-                        this.newOrderStatus = '';
-                        this.newPriceStatus = '';
-                        this.newCommentStatus = '';
-
-                    }
+                checkIfIdExists(id) {
+                    return this.orders.some(order => order.id === id);
                 },
-               
+
+
                 searchOrder() {
                     if (this.searchQuery) {
                         const order = this.orders.find(order => order.status.toLowerCase() === this.searchQuery.toLowerCase());
@@ -160,23 +244,50 @@
                     }
                 },
                 editOrder(id) {
+                    console.log(i);
                     this.selectedOrderId = id;
                 },
-                 deleteOrder(id) {
+                clos(num) {
+                    document.getElementsByClassName("pole")[num - 1].disabled = true;
+                },
+                opn(num) {
+                    document.getElementsByClassName("pole")[num - 1].disabled = false;
+                },
+                deleteOrder(id) {
 
                     const deletedOrder = this.orders.find(order => order.id === id);
                     if (deletedOrder) {
                         this.deletedOrders.push(deletedOrder);
                         this.orders = this.orders.filter(order => order.id !== id);
+
                     }
                 },
-
+                addNewOrder() {
+                    let isIdPresent = this.checkIfIdExists(parseInt(this.newOrderId));
+                    if (this.newOrderId && !isIdPresent && this.newOrderStatus && this.newPriceStatus && this.newCommentStatus) {
+                        this.orders.push({ id: parseInt(this.newOrderId), status: this.newOrderStatus, price: parseFloat(this.newPriceStatus), comment: this.newCommentStatus, history: [], num: this.orders.length + 1 });
+                        this.orders.sort((a, b) => a.id - b.id); // Сортировка по ID
+                        this.orders.forEach((order, index) => {
+                            order.num = index + 1; // Обновление значения num
+                        });
+                        this.newOrderId = '';
+                        this.newOrderStatus = '';
+                        this.newPriceStatus = '';
+                        this.newCommentStatus = '';
+                        console.log(isIdPresent);
+                    }
+                },
                 restoreOrder(id) {
                     const restoredOrder = this.deletedOrders.find(order => order.id === id);
                     if (restoredOrder) {
                         this.orders.push(restoredOrder);
+                        this.orders.sort((a, b) => a.id - b.id); // Сортировка по ID
+                        this.orders.forEach((order, index) => {
+                            order.num = index + 1; // Обновление значения num
+                        });
                         this.deletedOrders = this.deletedOrders.filter(order => order.id !== id);
                     }
+
                 }
             }
         });
